@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:fragment="header">
+        <meta charset="UTF-8">
+        <title>Gwynder Central</title>
+
+        <link rel="stylesheet"
+              th:href="@{/resources/bootstrap/bootstrap.min.css}"/>
+        <link rel="stylesheet"
+              th:href="@{/resources/fontawesome/css/font-awesome.min.css}"/>
+        <link rel="icon"
+              th:href="@{/resources/favicon.ico}"/>
+    </head>
+    <body>
+        <div th:fragment="scripts">
+            <script th:src="@{/resources/bootstrap/jquery.min.js}"></script>
+            <script th:src="@{/resources/bootstrap/popper.min.js}"></script>
+            <script th:src="@{/resources/bootstrap/bootstrap.min.js}"></script>
+        </div>
+    </body>
+</html>
