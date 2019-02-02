@@ -4,13 +4,15 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import pl.net.gwynder.central.common.database.BaseEntity
+import javax.persistence.Column
 import javax.persistence.Entity
 
 @Entity
-class CentralUser : BaseEntity(), UserDetails {
-
-    var login: String = ""
-    var passwordHash: String = ""
+class CentralUser(
+        @Column(unique = true)
+        var email: String = "",
+        var passwordHash: String = ""
+) : BaseEntity(), UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return mutableListOf(
@@ -19,7 +21,7 @@ class CentralUser : BaseEntity(), UserDetails {
     }
 
     override fun getUsername(): String {
-        return login
+        return email
     }
 
     override fun getPassword(): String {

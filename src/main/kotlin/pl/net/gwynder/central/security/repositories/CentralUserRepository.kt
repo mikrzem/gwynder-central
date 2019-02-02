@@ -6,6 +6,6 @@ import java.util.*
 
 interface CentralUserRepository : BaseEntityRepository<CentralUser> {
 
-    fun findByLogin(login: String): Optional<CentralUser>
+    fun findByEmail(login: String): Optional<CentralUser>
 
 }

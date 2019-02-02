@@ -9,13 +9,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import pl.net.gwynder.central.security.services.CentralUserDetailsService
 import pl.net.gwynder.central.security.services.CentralUserService
 
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-        private val userService: CentralUserService
+        private val userService: CentralUserDetailsService
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -41,6 +42,7 @@ class SecurityConfig(
                 ?.loginPage("/auth/login")
                 ?.successForwardUrl("/home")
                 ?.failureForwardUrl("/auth/login?error=true")
+                ?.loginProcessingUrl("/auth/login/default")
                 ?.permitAll()
                 ?.and()
                 ?.logout()

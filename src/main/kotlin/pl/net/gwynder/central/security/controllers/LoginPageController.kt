@@ -8,27 +8,75 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import pl.net.gwynder.central.common.BaseService
+import pl.net.gwynder.central.security.services.CentralUserProvider
+import pl.net.gwynder.central.security.services.CentralUserService
+import pl.net.gwynder.central.security.services.RegisterError
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Controller
 @RequestMapping("/auth")
-class LoginPageController : BaseService() {
+class LoginPageController(
+        private val userService: CentralUserService,
+        private val userProvider: CentralUserProvider
+) : BaseService() {
 
     @GetMapping("/login")
     fun loginPage(
             @RequestParam("error", defaultValue = "false") error: Boolean,
-            model: Model
+            model: Model,
+            response: HttpServletResponse
     ): String {
+        if(userProvider.findCurrent().isPresent) {
+            response.sendRedirect("/home")
+        }
         model.addAttribute("error", error)
         return "auth/login"
     }
 
-    @PostMapping("/login/verify", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
+    @PostMapping("/login", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
     fun verifyLogin(
             @RequestParam("username") username: String,
             @RequestParam("password") password: String,
             request: HttpServletRequest,
+            response: HttpServletResponse
+    ) {
+        loginUser(request, username, password, response)
+    }
+
+    @GetMapping("/register")
+    fun registerPage(
+            @RequestParam("errorMessage", required = false) errorMessage: String?,
+            model: Model
+    ): String {
+        model.addAttribute("errorMessage", errorMessage)
+        return "auth/register";
+    }
+
+    @PostMapping("/register", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])
+    fun verifyRegister(
+            @RequestParam("username") username: String,
+            @RequestParam("password") password: String,
+            @RequestParam("repeatPassword") repeatPassword: String,
+            request: HttpServletRequest,
+            response: HttpServletResponse
+    ) {
+        try {
+            userService.register(username, password, repeatPassword)
+            loginUser(request, username, password, response)
+        } catch (error: RegisterError) {
+            logger.error("Error during registration", error)
+            response.sendRedirect("/auth/register?errorMessage=" + URLEncoder.encode(error.message, StandardCharsets.UTF_8))
+        }
+
+    }
+
+    private fun loginUser(
+            request: HttpServletRequest,
+            username: String,
+            password: String,
             response: HttpServletResponse
     ) {
         try {
