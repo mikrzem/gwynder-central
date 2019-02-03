@@ -1,13 +1,10 @@
-package pl.net.gwynder.central.security.services
+package pl.net.gwynder.central.security.user.services
 
-import org.springframework.security.core.userdetails.UserDetails
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.security.entities.CentralUser
-import pl.net.gwynder.central.security.repositories.CentralUserRepository
+import pl.net.gwynder.central.security.user.entities.CentralUser
+import pl.net.gwynder.central.security.user.repositories.CentralUserRepository
 
 @Service
 class CentralUserService(

@@ -1,7 +1,7 @@
-package pl.net.gwynder.central.security.repositories
+package pl.net.gwynder.central.security.user.repositories
 
 import pl.net.gwynder.central.common.database.BaseEntityRepository
-import pl.net.gwynder.central.security.entities.CentralUser
+import pl.net.gwynder.central.security.user.entities.CentralUser
 import java.util.*
 
 interface CentralUserRepository : BaseEntityRepository<CentralUser> {

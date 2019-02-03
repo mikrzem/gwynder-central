@@ -3,18 +3,17 @@ package pl.net.gwynder.central.security.services
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.security.entities.CentralUser
 import java.util.*
 
 
 @Service
-class CentralUserProvider : BaseService() {
+class CommonUserDetailsProvider : BaseService() {
 
-    fun findCurrent(): Optional<CentralUser> {
+    fun findCurrent(): Optional<String> {
         val auth = SecurityContextHolder.getContext().authentication
         if (auth != null) {
-            if (auth.principal is CentralUser) {
-                return Optional.of(auth.principal as CentralUser)
+            if (auth.principal is CommonUserDetails) {
+                return Optional.of((auth.principal as CommonUserDetails).displayName)
             }
         }
         return Optional.empty()

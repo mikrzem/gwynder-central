@@ -3,12 +3,12 @@ package pl.net.gwynder.central.home
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.security.services.CentralUserProvider
+import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import javax.servlet.http.HttpServletResponse
 
 @Controller
 class HomePageController(
-        private val userProvider: CentralUserProvider
+        private val userProvider: CommonUserDetailsProvider
 ) : BaseService() {
 
     @GetMapping("/")

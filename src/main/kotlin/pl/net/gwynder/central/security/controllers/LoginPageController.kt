@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.security.services.CentralUserProvider
-import pl.net.gwynder.central.security.services.CentralUserService
-import pl.net.gwynder.central.security.services.RegisterError
+import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
+import pl.net.gwynder.central.security.user.services.CentralUserService
+import pl.net.gwynder.central.security.user.services.RegisterError
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 import javax.servlet.http.HttpServletRequest
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse
 @RequestMapping("/auth")
 class LoginPageController(
         private val userService: CentralUserService,
-        private val userProvider: CentralUserProvider
+        private val userProvider: CommonUserDetailsProvider
 ) : BaseService() {
 
     @GetMapping("/login")

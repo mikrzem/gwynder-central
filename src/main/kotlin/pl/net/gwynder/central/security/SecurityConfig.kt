@@ -9,8 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
-import pl.net.gwynder.central.security.services.CentralUserDetailsService
-import pl.net.gwynder.central.security.services.CentralUserService
+import pl.net.gwynder.central.security.user.services.CentralUserDetailsService
 
 
 @Configuration
