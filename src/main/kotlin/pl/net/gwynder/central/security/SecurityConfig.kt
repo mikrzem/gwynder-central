@@ -31,7 +31,6 @@ class SecurityConfig(
                 ?.antMatchers(
                         "/resources/**",
                         "/auth/**",
-                        "/actuator/**",
                         "/login"
                 )?.permitAll()
                 ?.antMatchers("/admin/**")?.hasRole("ADMIN")
