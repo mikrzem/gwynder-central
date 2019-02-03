@@ -9,13 +9,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import pl.net.gwynder.central.security.internal.services.InternalUserFilter
 import pl.net.gwynder.central.security.user.services.CentralUserDetailsService
 
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-        private val userService: CentralUserDetailsService
+        private val userService: CentralUserDetailsService,
+        private val internalUserFilter: InternalUserFilter
 ) : WebSecurityConfigurerAdapter() {
 
     @Bean
@@ -46,7 +49,7 @@ class SecurityConfig(
                 ?.logout()
                 ?.permitAll()
                 ?.and()
-//                .addFilterBefore(applicationTokenFilter, BasicAuthenticationFilter::class.java)
+                ?.addFilterBefore(internalUserFilter, BasicAuthenticationFilter::class.java)
                 ?.csrf()?.disable()
     }
 
