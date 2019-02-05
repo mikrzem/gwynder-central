@@ -51,6 +51,9 @@ class SecurityConfig(
                 ?.and()
                 ?.addFilterBefore(internalUserFilter, BasicAuthenticationFilter::class.java)
                 ?.csrf()?.disable()
+                ?.headers()
+                ?.frameOptions()
+                ?.sameOrigin()
     }
 
     override fun configure(auth: AuthenticationManagerBuilder?) {

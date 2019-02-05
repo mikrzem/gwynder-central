@@ -5,10 +5,12 @@
     </head>
     <body>
         <div th:include="home/navbar :: navbar"></div>
-        <iframe class="full-content-container"
-                th:src="@{${applicationUrl}}"
-                frameborder="0">
-        </iframe>
+        <div class="full-content-container">
+            <iframe class="application-container"
+                    th:src="@{${applicationUrl}}"
+                    frameborder="0">
+            </iframe>
+        </div>
         <div th:replace="common/include :: scripts"></div>
     </body>
 </html>
