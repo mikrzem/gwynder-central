@@ -1,4 +1,4 @@
-package pl.net.gwynder.central.proxy.api.controllers
+package pl.net.gwynder.central.proxy.application.controllers
 
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.proxy.api.services.ProxyApiService
+import pl.net.gwynder.central.proxy.application.services.ProxyApplicationService
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import javax.servlet.http.HttpServletRequest
 
-
 @Controller
-@RequestMapping("/api")
-class ApiController(
-        private val service: ProxyApiService,
+@RequestMapping("/application")
+class ApplicationController(
+        private val service: ProxyApplicationService,
         private val restTemplate: RestTemplate,
         private val userProvider: CommonUserDetailsProvider
 ) : BaseService() {
@@ -34,7 +33,7 @@ class ApiController(
             method: HttpMethod,
             request: HttpServletRequest
     ): ResponseEntity<String> {
-        val urlTail = AntPathMatcher().extractPathWithinPattern("/api/{name}/**", request.requestURI)
+        val urlTail = AntPathMatcher().extractPathWithinPattern("/application/{name}/**", request.requestURI)
         val targetURI = service.applyPath(name, urlTail, request.queryString)
         val headers = createProxyHeaders(requestHeaders)
         val entity = body?.let { HttpEntity(it, headers) } ?: HttpEntity(headers)

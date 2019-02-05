@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:include="common/include :: header">
+    </head>
+    <body>
+        <div th:include="home/navbar :: navbar"></div>
+        <div class="full-content-container">
+            <div class="card card-full">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <span class="fa fa-dashboard"></span>
+                        Applications dashboard
+                    </h4>
+                </div>
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div th:replace="common/include :: scripts"></div>
+    </body>
+</html>

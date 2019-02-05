@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gwynder Central</title>
+
+        <link rel="stylesheet"
+              th:href="@{/resources/bootstrap/bootstrap.min.css}"/>
+        <link rel="stylesheet"
+              th:href="@{/resources/fontawesome/css/font-awesome.min.css}"/>
+        <link rel="stylesheet"
+              th:href="@{/resources/central/style.css}"/>
+        <link rel="icon"
+              th:href="@{/resources/favicon.ico}"/>
+    </head>
+    <body>
+        <div th:fragment="navbar">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand"
+                   href="/home">
+                    Gwynder Central
+                </a>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse"
+                     id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"
+                            th:classappend="${dashboard} ? 'active' : ''">
+                            <a class="nav-link"
+                               th:href="@{/home}">
+                                <span class="fa fa-dashboard"></span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item"
+                            th:each="proxyApplication : ${applications}"
+                            th:classappend="(${activeApplication} == proxyApplication.name) ? 'active' : ''">
+                            <a class="nav-link"
+                               th:href="@{/home/{name}/(name=${proxyApplication.name})}">
+                                <span th:text="${proxyApplication.displayName}"></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <span th:text="${username}"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item logout-link">
+                            <form th:action="@{/auth/logout}"
+                                  method="post">
+                                <button type="submit"
+                                        class="btn btn-secondary">
+                                    <span class="fa fa-sign-out"></span>
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </body>
+</html>

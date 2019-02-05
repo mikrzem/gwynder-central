@@ -29,7 +29,7 @@ class LoginPageController(
             model: Model,
             response: HttpServletResponse
     ): String {
-        if(userProvider.findCurrent().isPresent) {
+        if (userProvider.findCurrent().isPresent) {
             response.sendRedirect("/home")
         }
         model.addAttribute("error", error)
@@ -86,6 +86,16 @@ class LoginPageController(
             logger.error("Error during login", ex)
             response.sendRedirect("/auth/login?error=true")
         }
+    }
+
+    @PostMapping("/logout")
+    fun logout(
+            request: HttpServletRequest,
+            response: HttpServletResponse
+    ) {
+        request.logout()
+        userProvider.clearCurrent()
+        response.sendRedirect("/auth/login")
     }
 
 }

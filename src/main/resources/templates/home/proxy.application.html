@@ -4,7 +4,11 @@
     <head th:include="common/include :: header">
     </head>
     <body>
-        <h1>Home page</h1>
+        <div th:include="home/navbar :: navbar"></div>
+        <iframe class="full-content-container"
+                th:src="@{${applicationUrl}}"
+                frameborder="0">
+        </iframe>
         <div th:replace="common/include :: scripts"></div>
     </body>
 </html>
