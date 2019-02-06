@@ -43,7 +43,7 @@
                         </li>
                         <li class="nav-item"
                             th:each="proxyApplication : ${applications}"
-                            th:classappend="(${activeApplication} == proxyApplication.name) ? 'active' : ''">
+                            th:classappend="${activeApplication == proxyApplication.name} ? 'active' : ''">
                             <a class="nav-link"
                                th:href="@{/home/{name}/(name=${proxyApplication.name})}">
                                 <span th:text="${proxyApplication.displayName}"></span>
