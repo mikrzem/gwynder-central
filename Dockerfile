@@ -1,6 +1,6 @@
 FROM openjdk:11
 
-COPY build/libs/gwynder-central-1.0.0-SNAPSHOT.jar gwynder-central.jar
+COPY build/libs/gwynder-central.jar gwynder-central.jar
 
 RUN mkdir -p /usr/data/token
 

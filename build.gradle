@@ -58,6 +58,9 @@ compileTestKotlin {
     }
 }
 
+bootJar {
+    archiveName = 'gwynder-central.jar'
+}
 
 springBoot {
     buildInfo()
