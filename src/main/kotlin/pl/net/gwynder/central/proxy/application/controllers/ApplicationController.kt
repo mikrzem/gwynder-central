@@ -39,8 +39,9 @@ class ApplicationController(
         val entity = body?.let { HttpEntity(it, headers) } ?: HttpEntity(headers)
         return try {
             val response = restTemplate.exchange(targetURI, method, entity, String::class.java)
-            logger.info("Returning response {}: {}", response.statusCode, response.body)
-            ResponseEntity.status(response.statusCodeValue).body(response.body)
+            ResponseEntity.status(response.statusCodeValue)
+                    .headers(response.headers)
+                    .body(response.body)
         } catch (ex: HttpClientErrorException) {
             ResponseEntity.status(ex.rawStatusCode).build()
         } catch (ex: Exception) {

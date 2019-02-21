@@ -37,8 +37,8 @@ class HomePageController(
             @PathVariable("applicationName") applicationName: String,
             model: Model
     ): String {
-        applicationService.checkApplication(applicationName)
-        model.addAttribute("applicationUrl", "/application/$applicationName")
+        val data = applicationService.getApplication(applicationName)
+        model.addAttribute("applicationUrl", "/application/${data.name}/${data.startPath}")
         addNavigationData(model, activeApplication = applicationName)
         return "home/proxy.application"
     }

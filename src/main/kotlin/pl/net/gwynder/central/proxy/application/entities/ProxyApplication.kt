@@ -11,5 +11,7 @@ class ProxyApplication(
         @Column(nullable = false)
         var path: String = "",
         @Column(nullable = false)
-        var displayName: String = ""
+        var displayName: String = "",
+        @Column(nullable = false)
+        var startPath: String = ""
 ): BaseEntity()

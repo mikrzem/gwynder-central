@@ -17,6 +17,7 @@ class ProxyApplicationService(
         val entity = fetchApplication(data.name)
         entity.path = data.path
         entity.displayName = data.displayName
+        entity.startPath = data.startPath
         val saved = repository.save(entity)
         return toData(saved)
     }
@@ -36,7 +37,8 @@ class ProxyApplicationService(
         return ProxyApplicationData(
                 entity.name,
                 entity.path,
-                entity.displayName
+                entity.displayName,
+                entity.startPath
         )
     }
 
