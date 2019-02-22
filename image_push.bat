@@ -1,4 +1,6 @@
 @echo off
+echo [INFO] Building image
+call image_build.bat
 echo [INFO] Looking for current version
 FOR /F "tokens=1,2 delims==" %%G IN (build/resources/main/META-INF/build-info.properties) DO (set %%G=%%H)
 echo [INFO] Pushing image to docker
