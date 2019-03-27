@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:include="common/include :: header">
+    </head>
+    <body>
+        <div th:include="home/navbar :: navbar"></div>
+        <div class="full-content-container">
+            <div class="card card-full">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <span class="fa fa-cogs"></span>
+                        Administration settings
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form action="#"
+                          th:action="@{/admin/api/options}"
+                          th:object="${options}"
+                          method="post">
+                        <div class="row form-group">
+                            <label class="col-md-12">
+                                <input type="checkbox"
+                                       th:field="*{showRegistration}"/>
+                                Show registration page
+                            </label>
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-md-12">
+                                <button type="submit"
+                                        class="btn btn-primary btn-block">
+                                    <span class="fa fa-save"></span>
+                                    Save settings
+                                </button>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div th:replace="common/include :: scripts"></div>
+    </body>
+</html>

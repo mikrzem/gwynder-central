@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import pl.net.gwynder.central.common.BaseService
+import pl.net.gwynder.central.common.errors.AdministratorBlocked
+import pl.net.gwynder.central.security.options.services.SecurityOptionsService
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import pl.net.gwynder.central.security.user.services.CentralUserService
 import pl.net.gwynder.central.security.user.services.RegisterError
@@ -20,7 +22,8 @@ import javax.servlet.http.HttpServletResponse
 @RequestMapping("/auth")
 class LoginPageController(
         private val userService: CentralUserService,
-        private val userProvider: CommonUserDetailsProvider
+        private val userProvider: CommonUserDetailsProvider,
+        private val options: SecurityOptionsService
 ) : BaseService() {
 
     @GetMapping("/login")
@@ -33,6 +36,7 @@ class LoginPageController(
             response.sendRedirect("/home")
         }
         model.addAttribute("error", error)
+        model.addAttribute("showRegistration", options.showRegistration)
         return "auth/login"
     }
 
@@ -51,8 +55,11 @@ class LoginPageController(
             @RequestParam("errorMessage", required = false) errorMessage: String?,
             model: Model
     ): String {
+        if(!options.showRegistration) {
+            throw AdministratorBlocked()
+        }
         model.addAttribute("errorMessage", errorMessage)
-        return "auth/register";
+        return "auth/register"
     }
 
     @PostMapping("/register", consumes = [MediaType.APPLICATION_FORM_URLENCODED_VALUE])

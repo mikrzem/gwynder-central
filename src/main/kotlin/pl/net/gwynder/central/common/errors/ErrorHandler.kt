@@ -18,4 +18,9 @@ class ErrorHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.message)
     }
 
+    @ExceptionHandler(AdministratorBlocked::class)
+    fun administratorBlocked(error: AdministratorBlocked): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.message)
+    }
+
 }
