@@ -5,9 +5,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.admin.AdminOptions
 import pl.net.gwynder.central.proxy.application.services.ProxyApplicationService
-import pl.net.gwynder.central.security.options.services.SecurityOptionsService
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import javax.servlet.http.HttpServletResponse
 
