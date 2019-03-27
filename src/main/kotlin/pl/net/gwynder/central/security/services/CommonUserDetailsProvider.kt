@@ -29,8 +29,10 @@ class CommonUserDetailsProvider : BaseService() {
     fun addUserHeader(headers: MultiValueMap<String, String>) {
         headers.add(
                 USER_HEADER,
-                findCurrent().orElse("[no user]")
+                current()
         )
     }
+
+    fun current() = findCurrent().orElse("[no user]")
 
 }

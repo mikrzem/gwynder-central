@@ -4,9 +4,14 @@ import pl.net.gwynder.central.security.user.entities.CentralUser
 import pl.net.gwynder.central.security.services.CommonUserDetails
 
 class CentralUserDetails(
-        user: CentralUser
+        user: CentralUser,
+        admin: Boolean
 ) : CommonUserDetails(
         user.email,
-        listOf("USER"),
+        if (admin) {
+            listOf("USER", "ADMIN")
+        } else {
+            listOf("USER")
+        },
         user.passwordHash
 )

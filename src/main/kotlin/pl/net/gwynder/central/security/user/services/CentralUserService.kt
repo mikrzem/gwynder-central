@@ -28,4 +28,28 @@ class CentralUserService(
         }
     }
 
+    fun findFirst(): CentralUser? {
+        return repository.findAll().firstOrNull()
+    }
+
+    fun checkPassword(userEmail: String?, password: String): Boolean {
+        if (userEmail == null) {
+            return false
+        }
+        return repository.findByEmail(userEmail)
+                .map { user -> passwordEncoder.matches(password, user.passwordHash) }
+                .orElse(false)
+    }
+
+    fun changePassword(userEmail: String?, password: String) {
+        if (userEmail == null) {
+            return
+        }
+        repository.findByEmail(userEmail)
+                .ifPresent { user ->
+                    user.passwordHash = passwordEncoder.encode(password);
+                    repository.save(user)
+                }
+    }
+
 }

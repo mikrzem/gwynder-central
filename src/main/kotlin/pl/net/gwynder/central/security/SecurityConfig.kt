@@ -18,17 +18,13 @@ import pl.net.gwynder.central.security.user.services.CentralUserDetailsService
 @EnableWebSecurity
 class SecurityConfig(
         private val userService: CentralUserDetailsService,
-        private val internalUserFilter: InternalUserFilter
+        private val internalUserFilter: InternalUserFilter,
+        private val passwordEncoder: PasswordEncoder
 ) : WebSecurityConfigurerAdapter() {
-
-    @Bean
-    fun passwordEncoder(): PasswordEncoder {
-        return BCryptPasswordEncoder()
-    }
 
     override fun configure(http: HttpSecurity?) {
         http?.sessionManagement()
-                ?.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                ?.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 ?.and()
                 ?.authorizeRequests()
                 ?.antMatchers(
@@ -59,7 +55,7 @@ class SecurityConfig(
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth
                 ?.userDetailsService(userService)
-                ?.passwordEncoder(passwordEncoder())
+                ?.passwordEncoder(passwordEncoder)
     }
 
 }

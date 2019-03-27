@@ -5,14 +5,17 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import pl.net.gwynder.central.common.BaseService
+import pl.net.gwynder.central.admin.AdminOptions
 import pl.net.gwynder.central.proxy.application.services.ProxyApplicationService
+import pl.net.gwynder.central.security.options.services.SecurityOptionsService
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import javax.servlet.http.HttpServletResponse
 
 @Controller
 class HomePageController(
         private val userProvider: CommonUserDetailsProvider,
-        private val applicationService: ProxyApplicationService
+        private val applicationService: ProxyApplicationService,
+        private val navigation: NavigationService
 ) : BaseService() {
 
     @GetMapping("/")
@@ -28,7 +31,7 @@ class HomePageController(
     fun home(
             model: Model
     ): String {
-        addNavigationData(model, dashboard = true)
+        navigation.addNavigationData(model, dashboard = true)
         return "home/dashboard"
     }
 
@@ -39,27 +42,8 @@ class HomePageController(
     ): String {
         val data = applicationService.getApplication(applicationName)
         model.addAttribute("applicationUrl", "/application/${data.name}/${data.startPath}")
-        addNavigationData(model, activeApplication = applicationName)
+        navigation.addNavigationData(model, activeApplication = applicationName)
         return "home/proxy.application"
-    }
-
-    private fun addNavigationData(model: Model, dashboard: Boolean = false, activeApplication: String? = null) {
-        model.addAttribute(
-                "username",
-                userProvider.findCurrent().orElse("[no user]")
-        )
-        model.addAttribute(
-                "dashboard",
-                dashboard
-        )
-        model.addAttribute(
-                "activeApplication",
-                activeApplication
-        )
-        model.addAttribute(
-                "applications",
-                applicationService.selectApplications()
-        )
     }
 
 }
