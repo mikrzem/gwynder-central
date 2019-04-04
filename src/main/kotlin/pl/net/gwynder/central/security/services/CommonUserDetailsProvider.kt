@@ -33,6 +33,6 @@ class CommonUserDetailsProvider : BaseService() {
         )
     }
 
-    fun current() = findCurrent().orElse("[no user]")
+    fun current(): String = findCurrent().orElse("[no user]")
 
 }

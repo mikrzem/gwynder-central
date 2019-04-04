@@ -5,6 +5,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import pl.net.gwynder.central.common.BaseService
+import pl.net.gwynder.central.dashboard.services.DashboardService
 import pl.net.gwynder.central.proxy.application.services.ProxyApplicationService
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import javax.servlet.http.HttpServletResponse
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpServletResponse
 class HomePageController(
         private val userProvider: CommonUserDetailsProvider,
         private val applicationService: ProxyApplicationService,
-        private val navigation: NavigationService
+        private val navigation: NavigationService,
+        private val dashboardService: DashboardService
 ) : BaseService() {
 
     @GetMapping("/")
@@ -30,6 +32,7 @@ class HomePageController(
             model: Model
     ): String {
         navigation.addNavigationData(model, dashboard = true)
+        model.addAttribute("dashboardList", dashboardService.select())
         return "home/dashboard"
     }
 
