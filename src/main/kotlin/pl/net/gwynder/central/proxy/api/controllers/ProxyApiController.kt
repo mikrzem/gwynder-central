@@ -22,14 +22,16 @@ class ProxyApiController(
         if (data.name != name) {
             throw ValidationError("Name in url and data should be equal")
         }
-        return service.saveApi(data)
+        return service.toData(
+                service.update(data)
+        )
     }
 
     @DeleteMapping("/{name}")
     fun deleteProxy(
             @PathVariable("name") name: String
     ) {
-        service.removeApi(name)
+        service.remove(name)
     }
 
 }

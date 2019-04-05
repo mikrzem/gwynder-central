@@ -9,8 +9,7 @@ import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.exchange
 import pl.net.gwynder.central.common.BaseService
 import pl.net.gwynder.central.dashboard.entities.DashboardInfo
-import pl.net.gwynder.central.proxy.api.entities.ProxyApi
-import pl.net.gwynder.central.proxy.api.services.ProxyApiService
+import pl.net.gwynder.central.dashboard.entities.ProxyDashboard
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import java.lang.Exception
 import java.util.*
@@ -19,21 +18,21 @@ import java.util.stream.Collectors
 @Service
 class DashboardInfoProvider(
         private val restTemplate: RestTemplate,
-        private val proxyApiService: ProxyApiService,
+        private val dashboardService: ProxyDashboardService,
         private val userProvider: CommonUserDetailsProvider
 ) : BaseService() {
 
     fun selectDashboard(): List<DashboardInfo> {
-        return proxyApiService.selectDashboards()
-                .flatMap { proxyApi -> fetchDashboard(proxyApi).stream().collect(Collectors.toList()) }
+        return dashboardService.select()
+                .flatMap { dashboard -> fetchDashboard(dashboard).stream().collect(Collectors.toList()) }
     }
 
-    private fun fetchDashboard(proxyApi: ProxyApi): Optional<DashboardInfo> {
+    private fun fetchDashboard(dashboard: ProxyDashboard): Optional<DashboardInfo> {
         return try {
             val headers: MultiValueMap<String, String> = HttpHeaders()
             userProvider.addUserHeader(headers)
             val response = restTemplate.exchange<DashboardInfo>(
-                    proxyApiService.dashboardPath(proxyApi),
+                    dashboardService.findPath(dashboard),
                     HttpMethod.GET,
                     HttpEntity<String>(headers),
                     DashboardInfo::class
@@ -43,7 +42,7 @@ class DashboardInfoProvider(
             }
             Optional.ofNullable(response.body)
         } catch (ex: Exception) {
-            logger.info("Failed to download dashboard ${proxyApi.name}")
+            logger.info("Failed to download dashboard ${dashboard.api.name}")
             Optional.empty()
         }
     }
