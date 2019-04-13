@@ -1,4 +1,4 @@
-package pl.net.gwynder.central.health.entities
+package pl.net.gwynder.central.proxy.health.entities
 
 import com.fasterxml.jackson.annotation.JsonCreator
 

@@ -4,8 +4,8 @@ import com.google.common.base.Strings
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
 import pl.net.gwynder.central.common.errors.DataNotFound
-import pl.net.gwynder.central.dashboard.services.ProxyDashboardService
-import pl.net.gwynder.central.health.services.ProxyHealthService
+import pl.net.gwynder.central.proxy.dashboard.services.ProxyDashboardService
+import pl.net.gwynder.central.proxy.health.services.ProxyHealthService
 import pl.net.gwynder.central.proxy.api.entities.ProxyApi
 import pl.net.gwynder.central.proxy.api.entities.ProxyApiData
 import pl.net.gwynder.central.proxy.api.repositories.ProxyApiRepository

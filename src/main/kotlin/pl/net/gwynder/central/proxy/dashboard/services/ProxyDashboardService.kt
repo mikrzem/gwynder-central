@@ -1,12 +1,12 @@
-package pl.net.gwynder.central.dashboard.services
+package pl.net.gwynder.central.proxy.dashboard.services
 
 import com.google.common.base.Strings
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
 import pl.net.gwynder.central.common.errors.DataNotFound
-import pl.net.gwynder.central.dashboard.entities.ProxyDashboard
-import pl.net.gwynder.central.dashboard.entities.ProxyDashboardData
-import pl.net.gwynder.central.dashboard.repositories.ProxyDashboardRepository
+import pl.net.gwynder.central.proxy.dashboard.entities.ProxyDashboard
+import pl.net.gwynder.central.proxy.dashboard.entities.ProxyDashboardData
+import pl.net.gwynder.central.proxy.dashboard.repositories.ProxyDashboardRepository
 import pl.net.gwynder.central.proxy.api.entities.ProxyApi
 
 @Service

@@ -1,4 +1,4 @@
-package pl.net.gwynder.central.dashboard.services
+package pl.net.gwynder.central.proxy.dashboard.services
 
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
@@ -8,8 +8,8 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.exchange
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.dashboard.entities.DashboardInfo
-import pl.net.gwynder.central.dashboard.entities.ProxyDashboard
+import pl.net.gwynder.central.proxy.dashboard.entities.DashboardInfo
+import pl.net.gwynder.central.proxy.dashboard.entities.ProxyDashboard
 import pl.net.gwynder.central.security.services.CommonUserDetailsProvider
 import java.lang.Exception
 import java.util.*

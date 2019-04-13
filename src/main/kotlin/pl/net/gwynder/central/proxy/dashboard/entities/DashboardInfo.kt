@@ -1,4 +1,4 @@
-package pl.net.gwynder.central.dashboard.entities
+package pl.net.gwynder.central.proxy.dashboard.entities
 
 import com.fasterxml.jackson.annotation.JsonCreator
 

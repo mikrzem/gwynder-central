@@ -1,8 +1,8 @@
-package pl.net.gwynder.central.dashboard.repositories
+package pl.net.gwynder.central.proxy.dashboard.repositories
 
 import org.springframework.data.jpa.repository.Modifying
 import pl.net.gwynder.central.common.database.BaseEntityRepository
-import pl.net.gwynder.central.dashboard.entities.ProxyDashboard
+import pl.net.gwynder.central.proxy.dashboard.entities.ProxyDashboard
 import pl.net.gwynder.central.proxy.api.entities.ProxyApi
 import java.util.*
 import javax.transaction.Transactional

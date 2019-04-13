@@ -1,7 +1,6 @@
-package pl.net.gwynder.central.dashboard.entities
+package pl.net.gwynder.central.proxy.dashboard.entities
 
 import pl.net.gwynder.central.common.database.BaseEntity
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 

@@ -1,16 +1,17 @@
-package pl.net.gwynder.central.dashboard.entities
+package pl.net.gwynder.central.proxy.health.entities
 
 import pl.net.gwynder.central.common.database.BaseEntity
 import pl.net.gwynder.central.proxy.api.entities.ProxyApi
+import pl.net.gwynder.central.proxy.api.entities.ProxyApiSection
 import javax.persistence.*
 
 @Entity
-class ProxyDashboard(
+class ProxyHealth(
         @OneToOne(fetch = FetchType.LAZY, optional = false)
         @JoinColumn(name = "apiId")
-        var api: ProxyApi = ProxyApi(),
+        override var api: ProxyApi = ProxyApi(),
         @Column(nullable = false)
         var active: Boolean = false,
         @Column
         var path: String? = null
-) : BaseEntity()
+) : BaseEntity(), ProxyApiSection

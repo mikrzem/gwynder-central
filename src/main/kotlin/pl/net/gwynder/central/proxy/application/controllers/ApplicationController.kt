@@ -1,6 +1,7 @@
 package pl.net.gwynder.central.proxy.application.controllers
 
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -39,8 +40,9 @@ class ApplicationController(
         val entity = body?.let { HttpEntity(it, headers) } ?: HttpEntity(headers)
         return try {
             val response = restTemplate.exchange(targetURI, method, entity, String::class.java)
+            val responseHeaders = fixResponseHeaders(response.headers, urlTail)
             ResponseEntity.status(response.statusCodeValue)
-                    .headers(response.headers)
+                    .headers(responseHeaders)
                     .body(response.body)
         } catch (ex: HttpClientErrorException) {
             ResponseEntity.status(ex.rawStatusCode).build()
@@ -49,6 +51,16 @@ class ApplicationController(
             ResponseEntity.status(500).build()
         }
 
+    }
+
+    private fun fixResponseHeaders(headers: HttpHeaders, urlTail: String): HttpHeaders {
+        val resultHeaders = HttpHeaders.writableHttpHeaders(headers)
+        if (urlTail.endsWith(".js")) {
+            resultHeaders.set("Content-Type", "text/javascript")
+        } else if (urlTail.endsWith(".css")) {
+            resultHeaders.set("Content-Type", "text/css")
+        }
+        return resultHeaders
     }
 
     private fun createProxyHeaders(requestHeaders: MultiValueMap<String, String>): MultiValueMap<String, String> {

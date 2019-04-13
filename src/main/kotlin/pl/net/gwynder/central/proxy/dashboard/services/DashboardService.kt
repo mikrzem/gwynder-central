@@ -1,8 +1,8 @@
-package pl.net.gwynder.central.dashboard.services
+package pl.net.gwynder.central.proxy.dashboard.services
 
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
-import pl.net.gwynder.central.dashboard.entities.DashboardInfo
+import pl.net.gwynder.central.proxy.dashboard.entities.DashboardInfo
 
 @Service
 class DashboardService(
