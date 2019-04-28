@@ -3,6 +3,7 @@ package pl.net.gwynder.central.security.user.services
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import pl.net.gwynder.central.common.BaseService
+import pl.net.gwynder.central.common.errors.DataNotFound
 import pl.net.gwynder.central.security.user.entities.CentralUser
 import pl.net.gwynder.central.security.user.repositories.CentralUserRepository
 
@@ -50,6 +51,11 @@ class CentralUserService(
                     user.passwordHash = passwordEncoder.encode(password);
                     repository.save(user)
                 }
+    }
+
+    fun getUser(userEmail: String): CentralUser {
+        return repository.findByEmail(userEmail)
+                .orElseThrow { DataNotFound("logged-in-user") }
     }
 
 }

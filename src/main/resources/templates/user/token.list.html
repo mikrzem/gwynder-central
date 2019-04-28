@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:include="common/include :: header">
+    </head>
+    <body>
+        <div th:include="home/navbar :: navbar"></div>
+        <div class="full-content-container">
+            <div class="card card-full">
+                <div class="card-header">
+                    <h4 class="card-title">
+                        <span class="fa fa-key"></span>
+                        Authorized applications
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Application</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="token : ${tokens}">
+                                <td th:text="${token.applicationName}"></td>
+                                <td>
+                                    <form th:action="@{/user/token/removal}"
+                                          method="post">
+                                        <input type="hidden"
+                                               th:value="${token.id}"
+                                               name="id"/>
+                                        <button type="submit"
+                                                class="btn btn-warning btn-block">
+                                            <span class="fa fa-trash-o"></span>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <a th:href="@{/user/token/creation}"
+                                       class="btn btn-block btn-success">
+                                        <span class="fa fa-plus-square-o"></span>
+                                        Add authorized application
+                                    </a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div th:replace="common/include :: scripts"></div>
+    </body>
+</html>
