@@ -30,7 +30,9 @@ class SecurityConfig(
                 ?.antMatchers(
                         "/resources/**",
                         "/auth/**",
-                        "/login"
+                        "/login",
+                        "/user/token/confirmation",
+                        "/status/**"
                 )?.permitAll()
                 ?.antMatchers("/admin/**")?.hasRole("ADMIN")
                 ?.anyRequest()?.authenticated()
