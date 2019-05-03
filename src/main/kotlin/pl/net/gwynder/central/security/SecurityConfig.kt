@@ -31,7 +31,7 @@ class SecurityConfig(
                         "/resources/**",
                         "/auth/**",
                         "/login",
-                        "/user/token/confirmation",
+                        "/user/token/confirmation/**",
                         "/status/**"
                 )?.permitAll()
                 ?.antMatchers("/admin/**")?.hasRole("ADMIN")
